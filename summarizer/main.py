@@ -8,6 +8,7 @@ The code is prototypal.
 
 import argparse
 import json
+import os
 import pickle
 import sys
 
@@ -64,16 +65,16 @@ def get_summary(title, article, num_sentences=5, use_semantics=False):
 
 def main(*args):
     # setup corpus stuff, if it exists
+    ARTICLE_TO_SUMMARIZE = 128
     corpus_exists = os.path.exists("resources/wiki-corpus.json")
     if corpus_exists:
         with open("resources/wiki-corpus.json", "r") as f:
             corpus = json.load(f)
-            _article = corpus[ARTICLE_TO_SUMMARIZE]['article']
-            _title = corpus[ARTICLE_TO_SUMMARIZE]['title']
+        _article = corpus[ARTICLE_TO_SUMMARIZE]['article']
+        _title = corpus[ARTICLE_TO_SUMMARIZE]['title']
     else:
         _article = ""
         _title = ""
-    ARTICLE_TO_SUMMARIZE = 128
 
     _num_sentences = 3
     parser = argparse.ArgumentParser(description=__doc__)
