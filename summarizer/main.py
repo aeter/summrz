@@ -78,9 +78,9 @@ def main(*args):
 
     _num_sentences = 3
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--title", "-t", default=_title,
+    parser.add_argument("--title", "-t",
                          help="The title of the text to be summarized")
-    parser.add_argument("--article", "-a", default=_article,
+    parser.add_argument("--article", "-a",
                          help="The text to be summarized")
     parser.add_argument("--num-sentences", "-n", default=_num_sentences,
                          help=str("Determines how many sentences should "
@@ -90,6 +90,11 @@ def main(*args):
                          help="Use on one of the over 2000 articles in the corpus.")
 
     args = parser.parse_args(*args)
+    if ((args.title and not args.article) or
+        (args.article and not args.title)):
+        print ("\nError: if providing --article or --title arguments, both "
+               "should be provided. These 2 agruments go together.\n")
+        sys.exit(-1)
 
     if args.article:
         with open(args.article) as f:
