@@ -1,3 +1,6 @@
+#Copyright 2011, Adrian Nackov
+#Released under BSD licence (3 clause): 
+#http://www.opensource.org/licenses/bsd-license.php
 import unittest
 from summarizer.preprocessing import Sentence, sentences, prepare
 

@@ -1,3 +1,6 @@
+#Copyright 2011, Adrian Nackov
+#Released under BSD licence (3 clause):
+#http://www.opensource.org/licenses/bsd-license.php
 import unittest
 from summarizer.similarity import *
 
@@ -16,7 +19,7 @@ class TestWordSimilarity(unittest.TestCase):
 
         bad_word_similarity_2 = word_similarity("cat", "qwzjlkcn")
         self.assertEqual(bad_word_similarity_2, 0)
-        
+
         # In theory only non-empty words will be provided to the
         # word_similarity function. Yeah, but...
         empty_word_similarity = word_similarity("", "cat")
