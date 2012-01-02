@@ -82,7 +82,8 @@ def main(*args):
                          help="The title of the text to be summarized")
     parser.add_argument("--article", "-a",
                          help="The text to be summarized")
-    parser.add_argument("--num-sentences", "-n", default=_num_sentences,
+    parser.add_argument("--num-sentences", "-n",
+                        default=_num_sentences, type=int,
                          help=str("Determines how many sentences should "
                                   "comprise the summary. The default is 3."))
     parser.add_argument("--corpus-article", "-c", type=int,
