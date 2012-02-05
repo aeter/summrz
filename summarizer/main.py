@@ -21,18 +21,31 @@ def get_classifier():
     with open("naive-bayes.pkl", "r") as f:
         return pickle.load(f)
 
-def get_summary(title, article, num_sentences=5, use_semantics=False):
+def get_summary(title, article, num_sentences=5,
+                use_semantics=False, use_clusters=True):
     '''
     Article and title are plaintext. Sentences is the number of sentences in the
     summary.
     '''
     article_sents = prepare(article)
-
     # remember the index of each sentence as they appear in the text
     # in order to be able to show the sentences in the order they appear
     # in the text
     for i,sent in enumerate(article_sents):
         sent.index_in_text = i
+
+    if not use_clusters:
+        summary_classifier = get_classifier()
+        for i,sent in enumerate(article_sents):
+            sent_features = features(sent, Article(title, article_sents))
+            sent.prob_good_summary = \
+                summary_classifier.prob_classify(sent_features).prob(True)
+            sent.index = i
+
+        result = sorted(article_sents,
+                        key=lambda s: s.prob_good_summary)
+        result.reverse()
+        return ''.join([sent.shorten() for sent in result[0:num_sentences]])
 
     # separate the text into groups
     matrix = similarity_matrix(article_sents, use_semantics=use_semantics)
@@ -89,6 +102,8 @@ def main(*args):
     parser.add_argument("--corpus-article", "-c", type=int,
                          default=ARTICLE_TO_SUMMARIZE,
                          help="Use on one of the over 2000 articles in the corpus.")
+    parser.add_argument("--without-clusters", "-u", action="store_true",
+                         help="Whether clustering should be used. Default is True")
 
     args = parser.parse_args(*args)
     if ((args.title and not args.article) or
@@ -105,9 +120,11 @@ def main(*args):
         args.title = corpus[args.corpus_article]['title']
         args.article = corpus[args.corpus_article]['article']
 
+    use_clusters = not args.without_clusters
+
     print "\nTitle: %s\n" % args.title
     print get_summary(args.title, args.article, args.num_sentences,
-                      use_semantics=False)
+                      use_semantics=False, use_clusters=use_clusters)
 
 if __name__ == '__main__':
     main(sys.argv[1:])
