@@ -1,3 +1,7 @@
+#Copyright 2011, Adrian Nackov
+#Released under BSD licence (3 clause):
+#http://www.opensource.org/licenses/bsd-license.php
+
 from nltk.util import ngrams
 
 def rouge(n, auto_summary_words, original_summary_words):
