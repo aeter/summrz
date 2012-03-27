@@ -11,4 +11,4 @@ for _dir in `ls $ROOT`
     done
     echo "Sleeping for 10"
     sleep 10
- done
+  done
