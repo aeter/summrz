@@ -1,0 +1,7 @@
+You need:
+
+-- python 2.7+ (but version lower than python 3).
+See http://www.python.org/getit/
+
+Libraries:
+-- nltk, numpy
