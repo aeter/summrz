@@ -7,13 +7,6 @@ from nltk.cluster.util import cosine_distance
 from math import log10, sqrt
 import cPickle
 
-#TODO - serialize the wup_similarity for the 5000 most often met words
-#in a database (SQLite preferably). This would constitute a matrix of
-#roughly 5000x2500 = 12,500,000 records - which may be searchable fast enough
-#with indexes (should be faster than calculating the similarity).
-#for the rest, just use something like Levenstein distance instead of 
-#wup_similarity - see if the results are ok. If not, see if there's another way to
-#speed up the wordnet synsets lookup.  
 
 class BrownCorpus(object):
     """
@@ -103,7 +96,6 @@ def sentence_similarity(words_s1, words_s2, use_semantics=False):
         return similarity
 
 def _sentence_similarity(words_s1, words_s2):
-    # TODO - profile and maybe rewrite in C, as it's used everywhere.
     """
     A function to be used for distance between 2 sentences.
 
@@ -179,6 +171,3 @@ def length(vector):
 
 def dot_product(vector1, vector2):
     return sum((a*b) for a,b in zip(vector1, vector2))
-
-if __name__ == '__main__':
-    pass
