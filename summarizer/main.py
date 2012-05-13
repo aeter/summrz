@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+#Copyright 2012, Adrian Nackov
+#Released under BSD licence (3 clause):
+#http://www.opensource.org/licenses/bsd-license.php
+
 '''
 A module for creating summaries from larger texts. Using semantics considerably
 slows the module. It may run slow on larger texts even if not using semantics.
