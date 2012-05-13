@@ -62,13 +62,6 @@ def features(sentence, article):
     _features["sent_length"] = len(sentence.words())
 
     #----------------------------------------------------------
-    #number of words present in Wikipedia article titles
-    """
-    _features["wiki_title"] = len(w for w in sentence.words()
-                                  if w in get_titles(corpus)
-    """
-
-    #----------------------------------------------------------
     # presence of uppercase words
     _features["uppercased"] = len([w for w in sentence.words()
                                    if w == w.upper()])
@@ -106,29 +99,14 @@ def featuresets(corpus):
             featuresets.append((sent_features, False))
     return featuresets
 
-# finding probability of classification:
-# >>> cl.prob_classify({'uni_title':0, 'bi_text':0, 'sent_length':10, 'uni_text':100, 'uppercased':8}).prob(False)
-
 def train(featuresets):
     """
     input: a list of tuples - featuresets
     returns: a trained on the featuresets classifier
     """
-    #TODO - choose the right features, etc.
     import nltk
     classifier = nltk.NaiveBayesClassifier.train(featuresets)
     return classifier
-
-"""
-def get_classifier():
-    if not os.path.isfile(SERIALIZED_CLASSIFIER):
-        print ("Wasn't able to find the classifier's "
-               "file: %s. Run [python classifier.py] "
-               "in order to create it" % SERIALIZED_CLASSIFIER)
-       sys.exit(-1)
-    with open(SERIALIZED_CLASSIFIER) as f:
-        return f.readlines()
-"""
 
 def flatten(list_of_lists):
     """A helper function"""
@@ -144,4 +122,3 @@ if __name__ == '__main__':
     import json
     with open("wiki-corpus.json") as f:
         CORPUS = json.load(f)
-
